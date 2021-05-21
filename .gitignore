@@ -1,0 +1,15 @@
+# Compiled files
+*.tfstate
+*.tfstate.backup
+*.tfstate.lock.info
+
+# Directories
+.terraform/
+.vagrant/
+
+# Ignored vscode files
+.vscode/
+
+# Node autogenerate folders
+node_modules/
+package-lock.json
