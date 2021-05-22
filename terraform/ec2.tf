@@ -8,6 +8,18 @@ resource "aws_instance" "chatapp1" {
   # the Public SSH key
   key_name = aws_key_pair.chatapp-instance-key-pair.key_name
 
+  provisioner "file" {
+    source      = "../scripts/install_nodejs.sh"
+    destination = "/tmp/install_nodejs.sh"
+  }
+
+  connection {
+    host        = aws_instance.chatapp1.public_ip
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = file("../chatapp-instance-key-pair")
+  }
+
   tags = {
     Name = "chatapp-1"
   }
@@ -23,6 +35,18 @@ resource "aws_instance" "chatapp2" {
   # the Public SSH key
   key_name = aws_key_pair.chatapp-instance-key-pair.id
 
+  provisioner "file" {
+    source      = "../scripts/install_nodejs.sh"
+    destination = "/tmp/install_nodejs.sh"
+  }
+
+  connection {
+    host        = aws_instance.chatapp2.public_ip
+    type        = "ssh"
+    user        = "ubuntu"
+    private_key = file("../chatapp-instance-key-pair")
+  }
+
   tags = {
     Name = "chatapp-2"
   }
@@ -30,6 +54,6 @@ resource "aws_instance" "chatapp2" {
 
 # Defining key-pair to log in into chatapp instances
 resource "aws_key_pair" "chatapp-instance-key-pair" {
-  key_name = "chatapp-instance-key-pair"
+  key_name   = "chatapp-instance-key-pair"
   public_key = file(var.public-ssh-key-path)
 }
