@@ -1,6 +1,8 @@
 resource "aws_elb" "chatapp" {
-  name = "chatapp-elb"
+  name    = "chatapp-elb"
   subnets = [aws_subnet.chatapp-subnet-public-1.id, aws_subnet.chatapp-subnet-public-2.id]
+
+  security_groups = ["${aws_security_group.elb-http.id}", ]
 
   # access_logs {
   #   bucket        = "foo"
