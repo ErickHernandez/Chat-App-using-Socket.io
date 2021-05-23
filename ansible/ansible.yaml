@@ -1,0 +1,32 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+    - name: Install nodejs.
+      shell: sh /tmp/install_nodejs.sh >> /tmp/install_nodejs.log
+    - name: "Creating App Directory"
+      file:
+        path: /home/ubuntu/chatapp
+        state: directory
+        owner: ubuntu
+    - name: "Download git repository"
+      git:
+        repo: https://github.com/abkunal/Chat-App-using-Socket.io
+        dest: /home/ubuntu/chatapp
+    - name: "Installing dependecies"
+      npm:
+        path: /home/ubuntu/chatapp
+    - name: "Installing PM2 for managing node-servers"
+      npm:
+        name: pm2
+        global: yes
+    - name: "Starting Chatapp Server"
+      shell:
+        "pm2 start /home/ubuntu/chatapp/app.js"
+    - name: "Establish that Chatapp start on every Reboot"
+      shell:
+        "pm2 startup && sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu"
+    - name: "Save current pm2 services"
+      shell:
+        "pm2 save"
