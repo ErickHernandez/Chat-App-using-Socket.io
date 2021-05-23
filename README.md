@@ -88,6 +88,6 @@ ansible-playbook ansible.yaml -u ubuntu
 The following instructions will destroy all the infraescture created by terraform.
 ```
 cd ../terraform
-terraform destroy -var "public-ssh-key-file=../sshkeys/nodekey.pub" -var="private-ssh-key-file=../sshkeys/nodekey" -var="private-ssh-key-path-file=../sshkeys/nodekey"
+terraform destroy -var "public-ssh-key-file=../sshkeys/nodekey.pub" -var="private-ssh-key-file=../sshkeys/nodekey" 
 type 'yes' (without single quoutes) and press enter
 ```
