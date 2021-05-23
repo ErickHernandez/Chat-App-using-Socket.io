@@ -23,10 +23,10 @@
         global: yes
     - name: "Starting Chatapp Server"
       shell:
-        "pm2 start /home/ubuntu/chatapp/app.js"
+        "pm2 start -f /home/ubuntu/chatapp/app.js"
     - name: "Establish that Chatapp start on every Reboot"
       shell:
-        "pm2 startup && sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu"
+        "pm2 startup && sudo env PATH=$PATH:/usr/bin /usr/local/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu"
     - name: "Save current pm2 services"
       shell:
         "pm2 save"
