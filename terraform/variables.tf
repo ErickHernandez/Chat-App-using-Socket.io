@@ -30,7 +30,12 @@ variable "ami" {
   }
 }
 
-variable "public-ssh-key-path" {
+variable "public-ssh-key-file" {
   description = "Local path where public ssh key file was generated"
+  type        = string
+}
+
+variable "private-ssh-key-file" {
+  description = "Local path where private ssh key file was generated"
   type        = string
 }

@@ -17,7 +17,7 @@ resource "aws_instance" "chatapp1" {
     host        = aws_instance.chatapp1.public_ip
     type        = "ssh"
     user        = "ubuntu"
-    private_key = file("../chatapp-instance-key-pair")
+    private_key = file(var.private-ssh-key-file)
   }
 
   tags = {
@@ -44,7 +44,7 @@ resource "aws_instance" "chatapp2" {
     host        = aws_instance.chatapp2.public_ip
     type        = "ssh"
     user        = "ubuntu"
-    private_key = file("../chatapp-instance-key-pair")
+    private_key = file(var.private-ssh-key-file)
   }
 
   tags = {
@@ -55,5 +55,5 @@ resource "aws_instance" "chatapp2" {
 # Defining key-pair to log in into chatapp instances
 resource "aws_key_pair" "chatapp-instance-key-pair" {
   key_name   = "chatapp-instance-key-pair"
-  public_key = file(var.public-ssh-key-path)
+  public_key = file(var.public-ssh-key-file)
 }
